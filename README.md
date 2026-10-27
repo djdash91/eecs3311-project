@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # AccessFix starter code (EECS3311, Stage 2)
 
 AccessFix is an AI agent that audits and repairs web accessibility issues. This is starter code built from the Stage 1 design report. It gives you the structure, the interfaces and one worked example of each design pattern. The logic is yours to write, with AI help.
@@ -140,3 +141,6 @@ The project requires AI-assisted development, and you remain responsible for the
 ## Versions
 
 Spring Boot 4.0.6, Java 21, Anthropic Java SDK 2.70.0 (model `claude-opus-5-5`), Playwright for Java 1.63.0, jsoup 1.23.2, picocli 4.7.7, Maven 3.9.16 (through the wrapper), React 19.3.0 and Vite 8.3.4. Newer patch versions are usually fine; change one at a time and rerun the tests.
+=======
+Stage 1 Assignment is Stage1-Design-Report.md
+>>>>>>> 340511274b7c317bb7e14b062801f5291672f564
