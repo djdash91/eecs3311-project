@@ -1,0 +1,40 @@
+<!doctype html>
+<!-- Test page with one example of each rule's issue. Expected issues are listed in samples/README.md. -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>.icon { display: inline-block; width: 1rem; height: 1rem; background: #444; }</style>
+</head>
+<body>
+  <h1>Bike Share sign-up</h1>
+
+  <!-- image-alt: no alt attribute; renders, so a screenshot exists -->
+  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='80'%3E%3Crect width='120' height='80' fill='%23d5d5f5'/%3E%3Ccircle cx='40' cy='55' r='18' fill='none' stroke='%23333' stroke-width='4'/%3E%3Ccircle cx='85' cy='55' r='18' fill='none' stroke='%23333' stroke-width='4'/%3E%3C/svg%3E">
+
+  <!-- image-alt: broken image, so there is no screenshot (F07 alternative flow) -->
+  <img src="missing-photo.jpg">
+
+  <!-- Not an issue: decorative image with empty alt -->
+  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='4'/%3E" alt="">
+
+  <!-- Not an issue: hidden image -->
+  <img src="hidden.png" style="display:none">
+
+  <form>
+    <!-- form-label: no label -->
+    <input type="email" placeholder="Email">
+    <!-- Not an issue: labelled field -->
+    <label for="name">Name</label>
+    <input id="name" type="text">
+    <!-- button-name: icon-only button with no name -->
+    <button type="button"><span class="icon" aria-hidden="true"></span></button>
+    <!-- Not an issue: submit input has a default name -->
+    <input type="submit">
+  </form>
+
+  <!-- link-name: link with no text -->
+  <a href="/cart"><span class="icon"></span></a>
+  <!-- Not an issue -->
+  <a href="/help">Help</a>
+</body>
+</html>

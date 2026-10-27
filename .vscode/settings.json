@@ -1,0 +1,13 @@
+{
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.compile.nullAnalysis.mode": "disabled",
+  "java.test.config": {
+    "envFile": "${workspaceFolder}/.env"
+  },
+  "files.exclude": {
+    "**/target": true,
+    "**/node_modules": true
+  },
+  "todo-tree.general.tags": ["TODO", "FIXME"],
+  "todo-tree.filtering.excludeGlobs": ["**/node_modules/**", "**/target/**", "**/mvnw*"]
+}

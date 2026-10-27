@@ -1,0 +1,19 @@
+# Build output
+target/
+frontend/dist/
+frontend/node_modules/
+
+# Local data and secrets: never commit these
+data/
+.env
+*.log
+
+# Stage 3 (KUMA) local artifacts
+.kuma/
+kuma/artifacts/
+.venv/
+
+# Editors and OS
+.DS_Store
+Thumbs.db
+.idea/

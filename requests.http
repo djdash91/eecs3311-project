@@ -1,0 +1,29 @@
+# Try the REST API without the React app.
+# Install the REST Client extension, start the web server, then select "Send Request" above a request.
+
+@base = http://localhost:8080/api
+
+### Load a page by URL (F01)
+# @name load
+POST {{base}}/audits
+Content-Type: application/json
+
+{ "url": "https://example.com" }
+
+### Load a page from HTML (F01)
+POST {{base}}/audits
+Content-Type: application/json
+
+{ "html": "<html><body><img src='cat.png'></body></html>", "fileName": "inline.html" }
+
+### Re-scan the audit from the first request (F02)
+POST {{base}}/audits/{{load.response.body.id}}/scan
+
+### Search WCAG (F05)
+GET {{base}}/wcag?q=page title
+
+### Ask a question (F04)
+POST {{base}}/audits/{{load.response.body.id}}/ask
+Content-Type: application/json
+
+{ "text": "Which issue should I fix first, and why?" }

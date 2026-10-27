@@ -1,0 +1,58 @@
+[
+  {
+    "number": "1.1.1",
+    "title": "Non-text Content",
+    "level": "A",
+    "summary": "Images and other non-text content have a text alternative that serves the same purpose. Decorative images are marked so assistive technology can ignore them.",
+    "whoItHelps": "People who are blind or have low vision and use screen readers, and people who turn images off.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html"
+  },
+  {
+    "number": "1.3.1",
+    "title": "Info and Relationships",
+    "level": "A",
+    "summary": "Structure and relationships shown visually, such as headings, lists, tables and which label belongs to which form field, are also available in code.",
+    "whoItHelps": "Screen reader users and people who change how content is presented.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html"
+  },
+  {
+    "number": "2.4.2",
+    "title": "Page Titled",
+    "level": "A",
+    "summary": "Each page has a title that describes its topic or purpose.",
+    "whoItHelps": "Screen reader users, who hear the title first, and anyone switching between many tabs, including people with cognitive disabilities.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/page-titled.html"
+  },
+  {
+    "number": "2.4.4",
+    "title": "Link Purpose (In Context)",
+    "level": "A",
+    "summary": "The purpose of each link can be worked out from its text, or from its text together with its surrounding context.",
+    "whoItHelps": "Screen reader users who browse a list of links, and people with cognitive disabilities.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-in-context.html"
+  },
+  {
+    "number": "3.1.1",
+    "title": "Language of Page",
+    "level": "A",
+    "summary": "The main language of the page is identified in code, so software can present it correctly.",
+    "whoItHelps": "Screen reader users, whose software needs the language to pronounce text correctly, and people using translation or reading tools.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/language-of-page.html"
+  },
+  {
+    "number": "3.3.2",
+    "title": "Labels or Instructions",
+    "level": "A",
+    "summary": "Labels or instructions are provided when content asks for user input.",
+    "whoItHelps": "People with cognitive or learning disabilities, screen reader users, and anyone who needs to know what a field expects.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html"
+  },
+  {
+    "number": "4.1.2",
+    "title": "Name, Role, Value",
+    "level": "A",
+    "summary": "Every user interface component, such as a form field, link or button, has a name and role that software can determine, and its state can be read and changed.",
+    "whoItHelps": "Screen reader and voice control users, who identify and operate controls by name.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html"
+  }
+]

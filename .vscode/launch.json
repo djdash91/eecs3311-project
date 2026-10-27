@@ -1,0 +1,31 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "AccessFix: web server (for the React app)",
+      "request": "launch",
+      "mainClass": "ca.yorku.accessfix.AccessFixApplication",
+      "projectName": "accessfix",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "AccessFix: CLI, load the sample page",
+      "request": "launch",
+      "mainClass": "ca.yorku.accessfix.AccessFixApplication",
+      "projectName": "accessfix",
+      "args": "cli load samples/broken-page.html",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "AccessFix: CLI, ask for arguments",
+      "request": "launch",
+      "mainClass": "ca.yorku.accessfix.AccessFixApplication",
+      "projectName": "accessfix",
+      "args": "${command:SpecifyProgramArgs}",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}

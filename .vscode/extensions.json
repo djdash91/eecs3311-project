@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "vscjava.vscode-java-pack",
+    "vmware.vscode-boot-dev-pack",
+    "Gruntfuggly.todo-tree",
+    "humao.rest-client",
+    "bierner.markdown-mermaid",
+    "anthropic.claude-code",
+    "ms-python.python"
+  ]
+}

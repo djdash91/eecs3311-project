@@ -1,0 +1,53 @@
+/* A plain, accessible base. The visual design is yours to make. */
+:root {
+  color-scheme: light dark;
+  --bg: #ffffff;
+  --text: #1a1a1a;
+  --muted: #555555;
+  --border: #8a8a8a;
+  --accent: #1d4ed8;
+  --error: #b42318;
+  --code-bg: #f3f4f6;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #161616;
+    --text: #f2f2f2;
+    --muted: #bdbdbd;
+    --border: #8f8f8f;
+    --accent: #93b4ff;
+    --error: #ff8a80;
+    --code-bg: #262626;
+  }
+}
+
+body { margin: 0; background: var(--bg); color: var(--text); }
+main { max-width: 60rem; margin: 0 auto; padding: 1rem; }
+
+/* Visible focus for keyboard users: never remove this without a replacement */
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.skip-link { position: absolute; left: -999px; }
+.skip-link:focus { left: 1rem; top: 1rem; background: var(--bg); padding: 0.5rem; z-index: 10; }
+
+.site-header { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; padding: 0.5rem 1rem; border-bottom: 1px solid var(--border); }
+.product-name { font-weight: 700; margin: 0; }
+nav ul { display: flex; gap: 0.5rem; list-style: none; margin: 0; padding: 0; }
+nav button[aria-current="page"] { font-weight: 700; text-decoration: underline; }
+
+label { display: block; font-weight: 600; margin-bottom: 0.25rem; }
+input, button { font: inherit; padding: 0.4rem 0.6rem; }
+input { border: 1px solid var(--border); background: var(--bg); color: var(--text); min-width: min(100%, 28rem); }
+form { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: end; }
+form label { flex-basis: 100%; }
+
+.error { color: var(--error); }
+.issue-list { padding-left: 1.2rem; }
+pre { background: var(--code-bg); padding: 0.5rem; overflow-x: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
