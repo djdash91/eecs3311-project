@@ -29,6 +29,7 @@ public class Audit {
     private final Deque<FixCommand> appliedFixes = new ArrayDeque<>();
     private final List<Decision> decisions = new ArrayList<>();
     private final Set<String> escalatedIssueIds = new LinkedHashSet<>();
+    private final Map<String, String> escalationReasons = new HashMap<>();
     private final Map<String, Integer> failedAttempts = new HashMap<>();
 
     public Audit(String id, String source, PageSnapshot snapshot) {
@@ -116,6 +117,22 @@ public class Audit {
 
     public void markEscalated(String issueId) {
         escalatedIssueIds.add(issueId);
+    }
+
+    /**
+     * Marks the issue escalated and keeps why, for the report. The first reason is kept: it says why
+     * the issue was handed to a person.
+     */
+    public void markEscalated(String issueId, String reason) {
+        escalatedIssueIds.add(issueId);
+        if (reason != null && !reason.isBlank()) {
+            escalationReasons.putIfAbsent(issueId, reason.trim());
+        }
+    }
+
+    /** Why the issue was escalated, if a reason was given. */
+    public Optional<String> escalationReason(String issueId) {
+        return Optional.ofNullable(escalationReasons.get(issueId));
     }
 
     public boolean isEscalated(String issueId) {
