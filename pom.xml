@@ -20,9 +20,14 @@
     <properties>
         <java.version>21</java.version>
         <anthropic.version>2.70.0</anthropic.version>
+        <google-genai.version>1.78.0</google-genai.version>
         <playwright.version>1.63.0</playwright.version>
         <jsoup.version>1.23.2</jsoup.version>
         <picocli.version>4.7.7</picocli.version>
+        <frontend-plugin.version>1.15.1</frontend-plugin.version>
+        <node.version>v22.23.2</node.version>
+        <!-- -Dfrontend.skip=true builds without the React app, for example for quick test runs -->
+        <frontend.skip>false</frontend.skip>
     </properties>
 
     <dependencies>
@@ -48,6 +53,13 @@
             <groupId>com.anthropic</groupId>
             <artifactId>anthropic-java</artifactId>
             <version>${anthropic.version}</version>
+        </dependency>
+
+        <!-- Gemini API. Only GeminiLLMClient may import com.google.genai.* (Adapter pattern) -->
+        <dependency>
+            <groupId>com.google.genai</groupId>
+            <artifactId>google-genai</artifactId>
+            <version>${google-genai.version}</version>
         </dependency>
 
         <!-- Headless Chromium for page loading and image screenshots (F01) -->
@@ -84,6 +96,45 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <!-- Builds the React app into target/classes/static, so Spring Boot serves it from the jar on :8080
+                 (vite.config.js sets the output folder). Installs its own Node into frontend/node. -->
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>${frontend-plugin.version}</version>
+                <configuration>
+                    <workingDirectory>frontend</workingDirectory>
+                    <nodeVersion>${node.version}</nodeVersion>
+                    <skip>${frontend.skip}</skip>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>install-node-and-npm</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>npm-ci</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>ci</arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>npm-build</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>run build</arguments>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

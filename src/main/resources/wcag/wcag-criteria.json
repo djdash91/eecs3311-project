@@ -8,12 +8,212 @@
     "url": "https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html"
   },
   {
+    "number": "1.2.1",
+    "title": "Audio-only and Video-only (Prerecorded)",
+    "level": "A",
+    "summary": "Recorded audio with no video has a transcript. Recorded video with no sound has a transcript or an audio track that describes what is shown.",
+    "whoItHelps": "People who are Deaf or hard of hearing, and people who are blind or have low vision.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/audio-only-and-video-only-prerecorded.html"
+  },
+  {
+    "number": "1.2.2",
+    "title": "Captions (Prerecorded)",
+    "level": "A",
+    "summary": "Recorded video with sound has captions for the dialogue and for other sounds that matter.",
+    "whoItHelps": "People who are Deaf or hard of hearing, and anyone watching with the sound off.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/captions-prerecorded.html"
+  },
+  {
+    "number": "1.2.3",
+    "title": "Audio Description or Media Alternative (Prerecorded)",
+    "level": "A",
+    "summary": "Recorded video has an audio description of what is shown, or a full transcript that includes the visual information.",
+    "whoItHelps": "People who are blind or have low vision.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/audio-description-or-media-alternative-prerecorded.html"
+  },
+  {
+    "number": "1.2.4",
+    "title": "Captions (Live)",
+    "level": "AA",
+    "summary": "Live video and audio broadcasts, such as webinars and streams, have captions.",
+    "whoItHelps": "People who are Deaf or hard of hearing.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/captions-live.html"
+  },
+  {
+    "number": "1.2.5",
+    "title": "Audio Description (Prerecorded)",
+    "level": "AA",
+    "summary": "Recorded video has an audio description of important visual information that the soundtrack doesn't already cover.",
+    "whoItHelps": "People who are blind or have low vision.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/audio-description-prerecorded.html"
+  },
+  {
     "number": "1.3.1",
     "title": "Info and Relationships",
     "level": "A",
     "summary": "Structure and relationships shown visually, such as headings, lists, tables and which label belongs to which form field, are also available in code.",
     "whoItHelps": "Screen reader users and people who change how content is presented.",
     "url": "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html"
+  },
+  {
+    "number": "1.3.2",
+    "title": "Meaningful Sequence",
+    "level": "A",
+    "summary": "When the reading order affects the meaning, the order in code matches the order a reader needs.",
+    "whoItHelps": "Screen reader users and people who use their own style sheets.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/meaningful-sequence.html"
+  },
+  {
+    "number": "1.3.3",
+    "title": "Sensory Characteristics",
+    "level": "A",
+    "summary": "Instructions don't rely only on shape, colour, size, position or sound, such as \"press the round button on the right\".",
+    "whoItHelps": "People who are blind or have low vision, and people who are colour blind.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/sensory-characteristics.html"
+  },
+  {
+    "number": "1.3.4",
+    "title": "Orientation",
+    "level": "AA",
+    "summary": "Content works in both portrait and landscape, unless one orientation is essential.",
+    "whoItHelps": "People whose device is mounted in one position, such as on a wheelchair.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/orientation.html"
+  },
+  {
+    "number": "1.3.5",
+    "title": "Identify Input Purpose",
+    "level": "AA",
+    "summary": "Fields that collect information about the user, such as their email address or phone number, say in code what they collect, so browsers can fill them in.",
+    "whoItHelps": "People with cognitive, memory or motor disabilities, who benefit from autofill and familiar icons.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/identify-input-purpose.html"
+  },
+  {
+    "number": "1.4.1",
+    "title": "Use of Color",
+    "level": "A",
+    "summary": "Colour isn't the only way information is shown, such as a required field or an error marked only in red.",
+    "whoItHelps": "People who are colour blind or have low vision.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html"
+  },
+  {
+    "number": "1.4.2",
+    "title": "Audio Control",
+    "level": "A",
+    "summary": "Sound that plays by itself for more than three seconds can be paused, stopped or turned down separately from the system volume.",
+    "whoItHelps": "Screen reader users, whose speech output is drowned out, and people who are easily distracted.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/audio-control.html"
+  },
+  {
+    "number": "1.4.3",
+    "title": "Contrast (Minimum)",
+    "level": "AA",
+    "summary": "Text has a contrast ratio of at least 4.5 to 1 with its background, or 3 to 1 for large text.",
+    "whoItHelps": "People with low vision or colour blindness, and anyone reading in bright light.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html"
+  },
+  {
+    "number": "1.4.4",
+    "title": "Resize Text",
+    "level": "AA",
+    "summary": "Text can be zoomed to 200 percent without losing content or features.",
+    "whoItHelps": "People with low vision.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html"
+  },
+  {
+    "number": "1.4.5",
+    "title": "Images of Text",
+    "level": "AA",
+    "summary": "Real text is used instead of pictures of words, except for logos or where a particular look is essential.",
+    "whoItHelps": "People with low vision, and people who change fonts, colours or spacing to read more easily.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/images-of-text.html"
+  },
+  {
+    "number": "1.4.10",
+    "title": "Reflow",
+    "level": "AA",
+    "summary": "Content fits a narrow window, equal to 320 CSS pixels wide, without scrolling in two directions.",
+    "whoItHelps": "People with low vision who zoom in, and people using small screens.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/reflow.html"
+  },
+  {
+    "number": "1.4.11",
+    "title": "Non-text Contrast",
+    "level": "AA",
+    "summary": "The visible edges of controls, focus indicators and the parts of graphics needed to understand them have a contrast ratio of at least 3 to 1.",
+    "whoItHelps": "People with low vision or colour blindness.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html"
+  },
+  {
+    "number": "1.4.12",
+    "title": "Text Spacing",
+    "level": "AA",
+    "summary": "Nothing is cut off or overlaps when users increase line, letter, word and paragraph spacing.",
+    "whoItHelps": "People with dyslexia or low vision, who often read more easily with more space.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html"
+  },
+  {
+    "number": "1.4.13",
+    "title": "Content on Hover or Focus",
+    "level": "AA",
+    "summary": "Pop-ups and tooltips that appear on hover or focus can be dismissed, can be hovered over themselves, and stay until the user moves away.",
+    "whoItHelps": "People with low vision who use magnification, and people with motor or cognitive disabilities.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus.html"
+  },
+  {
+    "number": "2.1.1",
+    "title": "Keyboard",
+    "level": "A",
+    "summary": "Everything can be done with a keyboard alone, without needing particular timing for each keystroke.",
+    "whoItHelps": "People who are blind and people with motor disabilities, who use a keyboard or a device that acts like one.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html"
+  },
+  {
+    "number": "2.1.2",
+    "title": "No Keyboard Trap",
+    "level": "A",
+    "summary": "Keyboard focus can always be moved away from any part of the page, and users are told how if it takes more than the usual keys.",
+    "whoItHelps": "Keyboard and screen reader users.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/no-keyboard-trap.html"
+  },
+  {
+    "number": "2.1.4",
+    "title": "Character Key Shortcuts",
+    "level": "A",
+    "summary": "Shortcuts that use a single letter, number or symbol key can be turned off or changed, or only work while the control has focus.",
+    "whoItHelps": "Speech input users, whose spoken words can set off shortcuts by accident, and keyboard users who mistype.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/character-key-shortcuts.html"
+  },
+  {
+    "number": "2.2.1",
+    "title": "Timing Adjustable",
+    "level": "A",
+    "summary": "Users can turn off, adjust or extend time limits, unless the limit is essential or longer than 20 hours.",
+    "whoItHelps": "People who read or type slowly, including people with cognitive, motor or vision disabilities.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable.html"
+  },
+  {
+    "number": "2.2.2",
+    "title": "Pause, Stop, Hide",
+    "level": "A",
+    "summary": "Moving, blinking, scrolling or auto-updating content that starts by itself can be paused, stopped or hidden.",
+    "whoItHelps": "People with attention or cognitive disabilities, and screen reader users.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide.html"
+  },
+  {
+    "number": "2.3.1",
+    "title": "Three Flashes or Below Threshold",
+    "level": "A",
+    "summary": "Nothing flashes more than three times in any one second, unless the flashes are small and dim enough to be safe.",
+    "whoItHelps": "People with photosensitive epilepsy or other seizure disorders.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/three-flashes-or-below-threshold.html"
+  },
+  {
+    "number": "2.4.1",
+    "title": "Bypass Blocks",
+    "level": "A",
+    "summary": "Users can skip blocks repeated on many pages, such as the navigation menu, for example with a skip link or landmarks.",
+    "whoItHelps": "Keyboard and screen reader users, who would otherwise move through the same menu on every visit.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/bypass-blocks.html"
   },
   {
     "number": "2.4.2",
@@ -24,12 +224,100 @@
     "url": "https://www.w3.org/WAI/WCAG22/Understanding/page-titled.html"
   },
   {
+    "number": "2.4.3",
+    "title": "Focus Order",
+    "level": "A",
+    "summary": "Moving through the page with the Tab key reaches controls in an order that keeps their meaning and use.",
+    "whoItHelps": "Keyboard and screen reader users, and people with cognitive disabilities.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/focus-order.html"
+  },
+  {
     "number": "2.4.4",
     "title": "Link Purpose (In Context)",
     "level": "A",
     "summary": "The purpose of each link can be worked out from its text, or from its text together with its surrounding context.",
     "whoItHelps": "Screen reader users who browse a list of links, and people with cognitive disabilities.",
     "url": "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-in-context.html"
+  },
+  {
+    "number": "2.4.5",
+    "title": "Multiple Ways",
+    "level": "AA",
+    "summary": "There is more than one way to find a page within a site, such as a menu, a search box or a site map.",
+    "whoItHelps": "People with cognitive or vision disabilities, who may find one way easier than another.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/multiple-ways.html"
+  },
+  {
+    "number": "2.4.6",
+    "title": "Headings and Labels",
+    "level": "AA",
+    "summary": "Headings and labels describe the topic or purpose of the content they introduce.",
+    "whoItHelps": "Screen reader users who jump between headings, and people with cognitive disabilities.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/headings-and-labels.html"
+  },
+  {
+    "number": "2.4.7",
+    "title": "Focus Visible",
+    "level": "AA",
+    "summary": "The element that has keyboard focus shows a visible indicator.",
+    "whoItHelps": "Keyboard users, and people with attention or memory disabilities who need to see where they are.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html"
+  },
+  {
+    "number": "2.4.11",
+    "title": "Focus Not Obscured (Minimum)",
+    "level": "AA",
+    "summary": "The element that has keyboard focus isn't completely covered by other content, such as a sticky header or a cookie banner.",
+    "whoItHelps": "Keyboard users and people with low vision who use magnification.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html"
+  },
+  {
+    "number": "2.5.1",
+    "title": "Pointer Gestures",
+    "level": "A",
+    "summary": "Anything that uses a multi-finger or path-based gesture, such as a pinch or swipe, can also be done with a single tap or click.",
+    "whoItHelps": "People with motor disabilities, and people using a head pointer or mouth stick.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/pointer-gestures.html"
+  },
+  {
+    "number": "2.5.2",
+    "title": "Pointer Cancellation",
+    "level": "A",
+    "summary": "Single-pointer actions happen when the pointer is released, not when it is pressed, so a mistaken press can be cancelled by moving away.",
+    "whoItHelps": "People with tremors or other motor disabilities, and people with low vision who press the wrong target.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/pointer-cancellation.html"
+  },
+  {
+    "number": "2.5.3",
+    "title": "Label in Name",
+    "level": "A",
+    "summary": "When a control has visible text, its accessible name includes that same text.",
+    "whoItHelps": "Speech input users, who say the visible text to activate a control.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/label-in-name.html"
+  },
+  {
+    "number": "2.5.4",
+    "title": "Motion Actuation",
+    "level": "A",
+    "summary": "Anything done by moving or shaking the device can also be done with a control, and the motion response can be turned off.",
+    "whoItHelps": "People whose device is mounted, and people with tremors who might trigger motion by accident.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/motion-actuation.html"
+  },
+  {
+    "number": "2.5.7",
+    "title": "Dragging Movements",
+    "level": "AA",
+    "summary": "Anything done by dragging, such as reordering items or moving a slider, can also be done with single taps or clicks.",
+    "whoItHelps": "People with motor disabilities who find holding and dragging difficult.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/dragging-movements.html"
+  },
+  {
+    "number": "2.5.8",
+    "title": "Target Size (Minimum)",
+    "level": "AA",
+    "summary": "Click and tap targets are at least 24 by 24 CSS pixels, or have enough space around them, with some exceptions such as links within a sentence.",
+    "whoItHelps": "People with tremors or limited dexterity, and anyone using a touch screen.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html"
   },
   {
     "number": "3.1.1",
@@ -40,6 +328,62 @@
     "url": "https://www.w3.org/WAI/WCAG22/Understanding/language-of-page.html"
   },
   {
+    "number": "3.1.2",
+    "title": "Language of Parts",
+    "level": "AA",
+    "summary": "Passages or phrases in a different language from the surrounding text are identified in code.",
+    "whoItHelps": "Screen reader users, whose software switches pronunciation, and people using translation tools.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/language-of-parts.html"
+  },
+  {
+    "number": "3.2.1",
+    "title": "On Focus",
+    "level": "A",
+    "summary": "Moving focus to an element doesn't cause a major change, such as opening a new window or submitting a form.",
+    "whoItHelps": "Keyboard and screen reader users, and people with cognitive disabilities.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/on-focus.html"
+  },
+  {
+    "number": "3.2.2",
+    "title": "On Input",
+    "level": "A",
+    "summary": "Changing a setting, such as choosing from a list, doesn't cause a major change unless users were told beforehand.",
+    "whoItHelps": "Screen reader users and people with cognitive disabilities, who may not notice the change.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/on-input.html"
+  },
+  {
+    "number": "3.2.3",
+    "title": "Consistent Navigation",
+    "level": "AA",
+    "summary": "Navigation repeated across pages appears in the same relative order each time.",
+    "whoItHelps": "People with cognitive disabilities, and screen reader and magnifier users who learn where things are.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/consistent-navigation.html"
+  },
+  {
+    "number": "3.2.4",
+    "title": "Consistent Identification",
+    "level": "AA",
+    "summary": "Controls and icons with the same function are identified the same way across a site, such as one search icon with one label.",
+    "whoItHelps": "Screen reader users and people with cognitive disabilities.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/consistent-identification.html"
+  },
+  {
+    "number": "3.2.6",
+    "title": "Consistent Help",
+    "level": "A",
+    "summary": "Help options repeated across pages, such as contact details or a chat, appear in the same relative place each time.",
+    "whoItHelps": "People with cognitive disabilities who need help to complete a task.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/consistent-help.html"
+  },
+  {
+    "number": "3.3.1",
+    "title": "Error Identification",
+    "level": "A",
+    "summary": "When an input error is detected, the field in error is identified and the error is described in text.",
+    "whoItHelps": "Screen reader users, people who are colour blind, and people with cognitive disabilities.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/error-identification.html"
+  },
+  {
     "number": "3.3.2",
     "title": "Labels or Instructions",
     "level": "A",
@@ -48,11 +392,51 @@
     "url": "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html"
   },
   {
+    "number": "3.3.3",
+    "title": "Error Suggestion",
+    "level": "AA",
+    "summary": "When an input error is detected and a correction is known, the correction is suggested, unless that would affect security.",
+    "whoItHelps": "People with cognitive or learning disabilities, and people with vision disabilities.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/error-suggestion.html"
+  },
+  {
+    "number": "3.3.4",
+    "title": "Error Prevention (Legal, Financial, Data)",
+    "level": "AA",
+    "summary": "Submissions that commit users, such as purchases, bookings or deleting stored data, can be reversed, are checked for errors, or can be reviewed and confirmed first.",
+    "whoItHelps": "People with cognitive, reading or motor disabilities, who are more likely to make mistakes.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/error-prevention-legal-financial-data.html"
+  },
+  {
+    "number": "3.3.7",
+    "title": "Redundant Entry",
+    "level": "A",
+    "summary": "Information users already entered in the same process is filled in or offered for selection, rather than asked for again.",
+    "whoItHelps": "People with cognitive or memory disabilities, and people with motor disabilities for whom typing is slow.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/redundant-entry.html"
+  },
+  {
+    "number": "3.3.8",
+    "title": "Accessible Authentication (Minimum)",
+    "level": "AA",
+    "summary": "Signing in doesn't require a memory or thinking test, such as solving a puzzle, unless another method is offered or password managers and pasting are allowed.",
+    "whoItHelps": "People with cognitive, memory or learning disabilities.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/accessible-authentication-minimum.html"
+  },
+  {
     "number": "4.1.2",
     "title": "Name, Role, Value",
     "level": "A",
     "summary": "Every user interface component, such as a form field, link or button, has a name and role that software can determine, and its state can be read and changed.",
     "whoItHelps": "Screen reader and voice control users, who identify and operate controls by name.",
     "url": "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html"
+  },
+  {
+    "number": "4.1.3",
+    "title": "Status Messages",
+    "level": "AA",
+    "summary": "Status messages, such as \"Added to cart\" or \"3 results found\", can be announced by assistive technology without moving focus.",
+    "whoItHelps": "Screen reader users, who would otherwise miss updates that appear on screen.",
+    "url": "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html"
   }
 ]

@@ -51,3 +51,44 @@ pre { background: var(--code-bg); padding: 0.5rem; overflow-x: auto; }
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* ---- Added for the views ---- */
+:root { --success: #1a7f37; --notice-bg: #fff4ce; }
+@media (prefers-color-scheme: dark) {
+  :root { --success: #6fdd8b; --notice-bg: #3d3200; }
+}
+
+h1:focus, h3:focus { outline-offset: 4px; }
+/* Padding counts inside the width, so fields never overflow a 320px screen (WCAG 1.4.10 Reflow). */
+input, textarea { box-sizing: border-box; max-width: 100%; }
+textarea { font: inherit; padding: 0.4rem 0.6rem; border: 1px solid var(--border); background: var(--bg); color: var(--text); width: min(100%, 40rem); }
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; }
+button[aria-pressed="true"] { font-weight: 700; text-decoration: underline; }
+
+section { margin-block: 1.5rem; }
+.button-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-block: 0.5rem; }
+.hint { flex-basis: 100%; margin: 0; color: var(--muted); }
+.success { color: var(--success); }
+.notice { background: var(--notice-bg); color: var(--text); padding: 0.5rem; border-left: 4px solid var(--border); }
+.status { min-height: 1.5em; }
+.issue-list > li { margin-bottom: 1.5rem; }
+
+.explanation div { margin-bottom: 0.5rem; }
+.explanation dt { font-weight: 600; }
+.explanation dd { margin-left: 0; }
+
+.conversation { padding-left: 1.2rem; }
+.answer { white-space: pre-wrap; }
+
+.table-scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; }
+caption { text-align: left; font-weight: 600; padding-bottom: 0.25rem; }
+th, td { border: 1px solid var(--border); padding: 0.4rem; text-align: left; vertical-align: top; }
+
+.proposal { border: 2px solid var(--accent); padding: 0 1rem 1rem; }
+.diff { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem; }
+.diff h4 { margin-bottom: 0.25rem; }
+
+/* Code wraps instead of scrolling sideways, so keyboard users can read all of it (axe: scrollable-region-focusable). */
+pre { white-space: pre-wrap; overflow-wrap: anywhere; }

@@ -1,146 +1,209 @@
-<<<<<<< HEAD
-# AccessFix starter code (EECS3311, Stage 2)
+# AccessFix
 
-AccessFix is an AI agent that audits and repairs web accessibility issues. This is starter code built from the Stage 1 design report. It gives you the structure, the interfaces and one worked example of each design pattern. The logic is yours to write, with AI help.
+AccessFix audits a web page for accessibility issues, explains them in plain language and, with your approval, fixes them. An AI agent (Google Gemini by default) helps explain, plan and propose fixes. Every fix is checked by scanning the page again, and you can undo it.
 
-## What the starter gives you, and what it leaves to you
+You can use it two ways:
 
-Complete, as worked examples to copy:
+- **In a browser**, at http://localhost:8080.
+- **From a terminal**, with commands such as `load`, `scan`, `fix` and `report`.
 
-- `ImageAltRule` and its tests: how to write and test a rule (Strategy pattern).
-- `AbstractAttributeFix`, `SetAltTextFix` and their tests: how a fix applies and undoes itself (Command pattern).
-- `AskMode`: what a mode supplies (State pattern).
-- `SearchWcagTool`: how a tool describes itself and validates input.
-- `AgentEventPublisher`: the Observer pattern subject.
-- `FixType`: the one place that says which fix types can fix which rules (F08).
-- `LoadCommand` and `ScanCommand`: two CLI commands.
-- `RestApiController`: every endpoint, mapped to a facade method.
-- `AuditView.jsx`: an accessible form.
-- `FakeLLMClient`: a scripted model for testing the agent loop without API calls.
+This guide starts from a computer with nothing installed.
 
-Left for you, with step-by-step TODO comments that name the feature and sequence diagram:
+## What you need
 
-- the five other rules and `RuleEngine.scan`;
-- `SnapshotService` (Playwright);
-- `FixService` and the other fix commands;
-- `ClaudeLLMClient` (the SDK conversion);
-- `AgentController.run` (the agent loop);
-- `ToolRegistry.execute` and the other tools;
-- `PlanMode`, `FixMode` and `ApprovalGate`;
-- `MemoryManager`, `IssueAssistant`, `ReportService` and `JdbcAuditRepository`;
-- the facade methods;
-- the other CLI commands;
-- most of the React app;
-- 48 more WCAG entries in `src/main/resources/wcag/wcag-criteria.json`.
+| Item | Why | Notes |
+|---|---|---|
+| Java 21 (JDK) | Builds and runs AccessFix | The only tool you install yourself |
+| Internet access | The first build downloads Maven, the libraries and a copy of Node; the first page load downloads Chromium (about 150 MB) | Later runs work from these copies. AI features always need internet access |
+| A Gemini API key | Explanations, alt-text suggestions, Ask, Plan and Fix | Free from Google AI Studio. Loading, scanning, undo, reports and WCAG search work without a key |
+| About 1.5 GB of disk space | Libraries, Node and Chromium | |
 
-Unfinished methods throw `UnsupportedOperationException("TODO: ...")`. The REST API returns these as HTTP 501, so you can see what's missing.
+You don't need to install Maven or Node. The project includes the Maven wrapper (`mvnw`), and the build downloads its own copy of Node.
 
-## Set up a fresh computer
+## 1. Install Java 21
 
-### Install the tools
-
-You don't need to install Maven: the project includes the Maven wrapper (`mvnw`), which downloads the right version the first time.
-
-On Windows, in PowerShell:
+**Windows** (PowerShell):
 
 ```powershell
-winget install Git.Git
 winget install EclipseAdoptium.Temurin.21.JDK
-winget install OpenJS.NodeJS.LTS
 ```
 
-On macOS, with Homebrew:
+**macOS** (with [Homebrew](https://brew.sh)):
 
 ```bash
-brew install git node
 brew install --cask temurin@21
 ```
 
-Close and reopen your terminal, then check that each command prints a version: `java -version` (it should say 21), `node -v` and `git --version`.
+**Linux** (Ubuntu or Debian):
 
-### Set up VS Code
+```bash
+sudo apt update
+sudo apt install openjdk-21-jdk
+```
 
-1. Open this folder in VS Code (**File**, then **Open Folder**).
-2. Accept the prompt to install the recommended extensions. The list is in `.vscode/extensions.json`: Java, Spring Boot, Todo Tree, REST Client, Mermaid preview, Claude Code and Python. Use another AI coding tool instead of Claude Code if you prefer; the project requires that you use one and log it.
-3. Wait for the Java extension to finish importing the project. The status bar shows progress; the first import downloads dependencies and takes a few minutes.
+Close and reopen the terminal, then check the version:
 
-### Add your Anthropic API key
+```bash
+java -version
+```
 
-Copy `.env.example` to `.env` and paste your key. VS Code's Run and Debug configurations and the Java test runner read `.env`, and Git ignores it. Never commit a key.
+It should say version 21. If it shows another version, set `JAVA_HOME` to the Java 21 folder. The Maven wrapper uses `JAVA_HOME` when it's set.
 
-To use the key from a terminal too, set it as an environment variable. On Windows, run `setx ANTHROPIC_API_KEY "your-key"` and reopen VS Code. On macOS, add `export ANTHROPIC_API_KEY=your-key` to `~/.zshrc`.
+## 2. Get the project
 
-You can do all the deterministic work (rules, fixes, scanning, reports) without a key. The Claude client connects only the first time it's used.
+Clone the repository, or unzip the project folder, then open a terminal in it:
 
-### Check that everything works
+```bash
+cd accessfix
+```
 
-1. Run the tests: on Windows `.\mvnw.cmd test`, on macOS `./mvnw test`. Or use **Terminal**, then **Run Task**, then **Backend: run all tests**. Expect 16 passing tests and 2 skipped.
-2. Check your API key with one tiny call: set `ACCESSFIX_LIVE_TESTS=true` in `.env`, then run `ClaudeConnectionLiveTest` from the Testing panel. Set it back to `false` afterwards.
-3. Start the web server: **Run and Debug**, then **AccessFix: web server**. It listens on port 8080.
-4. Start the React app: run the tasks **Frontend: install packages** and **Frontend: start dev server**, then open http://localhost:5173. Loading a page shows a "TODO" error until you implement `loadPage`, which is expected.
+On macOS and Linux, make the wrapper runnable (once):
 
-The first time `SnapshotService` launches Playwright, it downloads Chromium (around 150 MB).
+```bash
+chmod +x mvnw
+```
 
-## Run the application
+## 3. Add your API key
 
-| What | How |
+1. Get a key from [Google AI Studio's API keys page](https://aistudio.google.com/apikey). Sign in with a Google account and select **Create API key**.
+2. Copy `.env.example` to a new file called `.env` in the same folder.
+3. In `.env`, paste your key after `GEMINI_API_KEY=`. Leave `ANTHROPIC_API_KEY` empty unless you switch to Claude (see [Settings](#settings)).
+
+`.env` is listed in `.gitignore`, so Git won't commit it. Don't put the key in `application.properties`, because that file is committed.
+
+AccessFix reads the key from an environment variable, so load `.env` into each new terminal before you start the app.
+
+**macOS and Linux:**
+
+```bash
+set -a; . ./.env; set +a
+```
+
+**Windows (PowerShell):**
+
+```powershell
+Get-Content .env | Where-Object { $_ -match '^\s*[^#].*=' } | ForEach-Object {
+  $name, $value = $_ -split '=', 2
+  Set-Item "env:$($name.Trim())" $value.Trim()
+}
+```
+
+## 4. Build
+
+**macOS and Linux:**
+
+```bash
+./mvnw package -DskipTests
+```
+
+**Windows:**
+
+```powershell
+.\mvnw.cmd package -DskipTests
+```
+
+The first build takes a few minutes. It downloads Maven, the Java libraries and Node, builds the React app, and makes one file: `target/accessfix-0.1.0-SNAPSHOT.jar`. It ends with `BUILD SUCCESS`.
+
+## 5. Run in a browser
+
+```bash
+java -jar target/accessfix-0.1.0-SNAPSHOT.jar
+```
+
+Wait for the line `Tomcat started on port 8080`, then open http://localhost:8080. To stop the app, press Ctrl+C in the terminal.
+
+Try it with the sample page:
+
+1. On the **Audit** page, under **Or upload an HTML file**, choose `samples/broken-page.html`, then select **Upload HTML file**. The first load downloads Chromium, so it can take a minute. You should see **Issues (7)**.
+2. Select **Explain** on an issue, or **Suggest alt text** on an image issue.
+3. Go to **Agent**. Ask a question in Ask mode. Or select **Plan**, create a plan and approve it, then select **Fix** and **Start**. Approve or reject each proposed fix.
+4. Go to **Reports** to download the report or the fixed page.
+
+You can also load a live page by its URL.
+
+## 6. Run from a terminal
+
+Load `.env` first (step 3), then put `cli` before the command:
+
+```bash
+java -jar target/accessfix-0.1.0-SNAPSHOT.jar cli load samples/broken-page.html
+```
+
+`load` prints an audit ID. The other commands, except `wcag`, take that ID:
+
+| Command | What it does |
 |---|---|
-| Web server (backend for the GUI) | Run and Debug: **AccessFix: web server**, or `./mvnw spring-boot:run` |
-| React app | `cd frontend`, `npm install` once, then `npm run dev` |
-| A CLI command | Run and Debug: **AccessFix: CLI, ask for arguments**, then type for example `cli load samples/broken-page.html` |
-| CLI from a terminal | `./mvnw spring-boot:run -Dspring-boot.run.arguments="cli scan <auditId>"` |
-| REST calls without the GUI | Open `requests.http` and select **Send Request** |
+| `load <file or URL>` | Loads and scans a page, and prints the audit ID |
+| `scan <id>` | Scans again and lists the issues |
+| `explain <id> <issueId>` | Explains one issue |
+| `alt <id> <issueId>` | Suggests alt text for an image, then applies it if you agree |
+| `ask <id> <question>` | Asks the agent a question |
+| `plan <id> [--goal "…"]` | Creates a plan, then asks you to approve it |
+| `fix <id>` | Starts a fix session: approve or reject each fix (needs an approved plan) |
+| `undo <id>` | Undoes the latest fix |
+| `report <id> [-o report.md]` | Shows the Markdown report, or saves it with `-o` |
+| `export <id> [-o fixed.html]` | Shows the fixed page's HTML, or saves it with `-o` |
+| `wcag <words>` | Searches the WCAG 2.2 Level A and AA criteria |
 
-CLI commands share audits only once storage is set to H2 (`accessfix.storage=h2` in `application.properties`), because each command is a separate process.
+Run `cli --help`, or `cli <command> --help`, for details. Each command runs on its own and exits. Audits are saved in the `data` folder, so an audit ID keeps working in later commands.
 
-## How the code maps to your design
+## Run the tests (optional)
 
-| Package | Stage 1 view | Contents |
+```bash
+./mvnw test
+```
+
+On Windows, use `.\mvnw.cmd test`. Expect 427 tests to pass, with 4 skipped. The skipped tests call the real AI service; they run only when `ACCESSFIX_LIVE_TESTS=true`. To skip building the React app during tests, add `-Dfrontend.skip=true`.
+
+## Changing the React app (optional)
+
+To see your changes as soon as you save, run the Vite dev server alongside the app. This needs [Node 22](https://nodejs.org) installed.
+
+1. Start AccessFix (step 5).
+2. In a second terminal:
+
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+   ```
+
+3. Open http://localhost:5173. The dev server sends API calls to port 8080.
+
+Run `./mvnw package` again to put your changes into the jar.
+
+## Settings
+
+Settings are in `src/main/resources/application.properties`. Rebuild after changing them.
+
+| Setting | Default | Meaning |
 |---|---|---|
-| `ui.rest`, `ui.cli`, `facade` | View A | `RestApiController`, `SseEventStream`, `CliApp`, `AccessFixFacade` |
-| `agent`, `agent.mode`, `agent.tools`, `agent.events`, `llm` | View B | `AgentController`, modes, tools, `ApprovalGate`, `MemoryManager`, `IssueAssistant`, `LLMClient` |
-| `domain`, `scan`, `snapshot`, `report`, `persistence` | View C | `Audit`, `PageSnapshot`, `RuleEngine`, rules, `ReportService`, `AuditRepository` |
-| `fix`, `wcag` | View D | `FixService`, fix commands, `WcagKnowledgeBase` |
+| `accessfix.llm` | `gemini` | `gemini` uses `GEMINI_API_KEY`; `claude` uses `ANTHROPIC_API_KEY` |
+| `accessfix.gemini.model` | `gemini-3.5-flash-lite` | The Gemini model |
+| `accessfix.storage` | `h2` | `h2` saves audits in `./data`; `memory` forgets them when the app stops |
+| `server.port` | `8080` | The browser app's port |
 
-`docs/TRACEABILITY.md` maps every feature to its files. `docs/DESIGN-CHANGES.md` lists small changes the starter made to your design; review each one, because you'll need to justify them.
+## Using VS Code (optional)
 
-## Suggested build order
+Open the folder in VS Code and accept the recommended extensions. **Run and Debug** has configurations for the web server and the CLI, and they read `.env` for you.
 
-Deterministic parts first, so you have a tested base before any AI behaviour is involved.
+## Troubleshooting
 
-1. **Rules (F02).** Write the five rules and `RuleEngine.scan`, with tests modelled on `ImageAltRuleTest`. Use `samples/broken-page.html`; its README lists the expected issues.
-2. **Fixes (F09).** The other fix commands, `FixService.createCommand` and `applyVerified`, with round-trip tests.
-3. **Loading (F01).** `SnapshotService` with Playwright, then `loadPage`, `scan` and the CLI `load` and `scan` commands. This is the first time you can run the whole path.
-4. **WCAG search (F05).** `WcagKnowledgeBase.search`, and the remaining knowledge base entries.
-5. **Storage and report (F10, F11).** `JdbcAuditRepository`, then `ReportService`.
-6. **Claude (F03, F07).** `ClaudeLLMClient.send`, then `IssueAssistant`.
-7. **Agent loop (F04).** `ToolRegistry.execute`, then `AgentController.run`. Enable `AgentControllerTest` first and make it pass.
-8. **Plan mode (F06), then Fix mode (F08).** `ApprovalGate` and `MemoryManager` come with Fix mode.
-9. **GUI.** Server-Sent Events, then the React views.
+| Problem | What to do |
+|---|---|
+| `java -version` isn't 21, or the build says "release version 21 not supported" | Install Java 21 and set `JAVA_HOME` to it |
+| `permission denied: ./mvnw` | Run `chmod +x mvnw` |
+| The build fails in `vite build` the first time | Run the same command again |
+| "The Gemini API key is missing" | Load `.env` into this terminal (step 3) and restart the app |
+| "The Gemini API key isn't valid" | Check the key in `.env`, then load it and restart |
+| "Gemini's rate limit was reached" | The free tier allows only a few requests a minute. Wait a minute, then select **Retry** or run the command again. Fixes that were already verified are kept |
+| Port 8080 is already in use | Stop the other program, or change `server.port` |
+| Loading a page fails on Linux with missing library errors | Install Chromium's system libraries: `./mvnw compile exec:java -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install-deps chromium"` (it asks for your password) |
+| You want to start again with no saved audits | Stop the app and delete the `data` folder |
 
-The Todo Tree extension lists every `TODO(` comment, grouped by file.
+## More documents
 
-## Working with AI tools
-
-The project requires AI-assisted development, and you remain responsible for the result. Some habits that help:
-
-- **Give the AI your design, not just the task.** Paste the relevant sequence diagram and class description from your Stage 1 report, and the file you're working on. Ask it to follow the existing interfaces.
-- **Ask for one method at a time, with tests.** Read every line before accepting it. When it gets something wrong, that's a log entry.
-- **Write log entries as you go** in `docs/AI-TOOLS-AND-LOG.md`, not at the end.
-- **Don't use the SDK's tool runner** (`BetaToolRunner`). It runs tools itself and would bypass `ToolRegistry`'s mode checks.
-- **Keep `com.anthropic` imports inside `ClaudeLLMClient`.** That's your Adapter pattern; check it after the AI edits other files.
-
-## Things that commonly go wrong
-
-- **Spring Boot 4 compared with older examples.** This project uses Spring Boot 4.0.6, and many AI suggestions and tutorials show Spring Boot 3. Two signs of older code are `spring-boot-starter-web` (now `spring-boot-starter-webmvc`) and `com.fasterxml.jackson.databind.ObjectMapper` in Spring code (Spring Boot 4 uses Jackson 3, in `tools.jackson`). The Anthropic SDK uses the older Jackson 2 internally; both can be on the classpath.
-- **"Could not find or load main class".** Let the Java extension finish importing, then run **Java: Clean Java Language Server Workspace** from the Command Palette.
-- **`mvnw` permission denied on macOS.** Run `chmod +x mvnw`.
-- **Port 8080 already in use.** Stop the other run in VS Code's Debug toolbar, or change `server.port`.
-- **Dependency errors mentioning okhttp or kotlin.** Run `./mvnw dependency:tree` and ask your AI tool to explain the conflict.
-
-## Versions
-
-Spring Boot 4.0.6, Java 21, Anthropic Java SDK 2.70.0 (model `claude-opus-5-5`), Playwright for Java 1.63.0, jsoup 1.23.2, picocli 4.7.7, Maven 3.9.16 (through the wrapper), React 19.3.0 and Vite 8.3.4. Newer patch versions are usually fine; change one at a time and rerun the tests.
-=======
-Stage 1 Assignment is Stage1-Design-Report.md
->>>>>>> 340511274b7c317bb7e14b062801f5291672f564
+- `docs/TRACEABILITY.md`: where each feature from the Stage 1 design is implemented, and its tests.
+- `docs/DESIGN-CHANGES.md`: each difference from the Stage 1 design, and why.
+- `docs/STARTER-README.md`: the original starter-code guide (build order, AI tips).
+- `samples/README.md`: the issues expected on each sample page.

@@ -11,7 +11,7 @@ Expected issues, one row per issue:
 | image-alt | Bicycle drawing | Renders, so a screenshot exists for alt-text suggestions |
 | image-alt | `missing-photo.jpg` | Broken image: no screenshot, so the user writes the alt text (F07) |
 | form-label | Email field | Placeholder text is not a label |
-| button-name | Icon-only button | The icon is hidden from assistive technology and there is no other name |
+| button-name | "?" help button next to the Email field | Shows and hides the email help text. The "?" is hidden from assistive technology and there is no other name |
 | link-name | Cart link | No text or other name |
 | page-lang | `html` element | No `lang` attribute |
 | page-title | Page | No `title` element |

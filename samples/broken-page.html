@@ -3,13 +3,16 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <style>.icon { display: inline-block; width: 1rem; height: 1rem; background: #444; }</style>
+  <style>
+    .icon { display: inline-block; width: 1rem; height: 1rem; background: #444; }
+    .help-icon { font-weight: bold; }
+  </style>
 </head>
 <body>
   <h1>Bike Share sign-up</h1>
 
   <!-- image-alt: no alt attribute; renders, so a screenshot exists -->
-  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='80'%3E%3Crect width='120' height='80' fill='%23d5d5f5'/%3E%3Ccircle cx='40' cy='55' r='18' fill='none' stroke='%23333' stroke-width='4'/%3E%3Ccircle cx='85' cy='55' r='18' fill='none' stroke='%23333' stroke-width='4'/%3E%3C/svg%3E">
+  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='80'%3E%3Crect width='120' height='80' fill='%23d5d5f5'/%3E%3Cg fill='none' stroke='%23333' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='28' cy='56' r='16'/%3E%3Ccircle cx='92' cy='56' r='16'/%3E%3Cpath d='M28 56 L52 56 L44 32 Z M52 56 L80 32 L44 32 M80 32 L92 56'/%3E%3Cpath d='M38 28 L50 28 M44 32 L44 28 M80 32 L77 22 M71 22 L84 22'/%3E%3C/g%3E%3C/svg%3E">
 
   <!-- image-alt: broken image, so there is no screenshot (F07 alternative flow) -->
   <img src="missing-photo.jpg">
@@ -21,13 +24,17 @@
   <img src="hidden.png" style="display:none">
 
   <form>
-    <!-- form-label: no label -->
-    <input type="email" placeholder="Email">
+    <div>
+      <!-- form-label: no label -->
+      <input type="email" placeholder="Email">
+      <!-- button-name: "?" help button whose icon is hidden from assistive technology, so it has no name -->
+      <button type="button" aria-controls="email-help" aria-expanded="false"
+        onclick="const help = document.getElementById('email-help'); help.hidden = !help.hidden; this.setAttribute('aria-expanded', String(!help.hidden));"><span class="help-icon" aria-hidden="true">?</span></button>
+      <p id="email-help" hidden>We only use your email to send your bike-share receipts.</p>
+    </div>
     <!-- Not an issue: labelled field -->
     <label for="name">Name</label>
     <input id="name" type="text">
-    <!-- button-name: icon-only button with no name -->
-    <button type="button"><span class="icon" aria-hidden="true"></span></button>
     <!-- Not an issue: submit input has a default name -->
     <input type="submit">
   </form>
