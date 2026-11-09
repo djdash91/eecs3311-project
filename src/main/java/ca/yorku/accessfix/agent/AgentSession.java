@@ -60,6 +60,22 @@ public class AgentSession {
         messages.add(message);
     }
 
+    /**
+     * Adds user content, joining it to the last message if that is already a user message. A run can
+     * end with tool results as the last message (a plan accepted, the step limit), and the next
+     * question then belongs in the same turn: the models expect user and model turns to alternate.
+     */
+    public void addUserContent(List<? extends ContentBlock> content) {
+        int last = messages.size() - 1;
+        if (last >= 0 && messages.get(last).role() == Message.Role.USER) {
+            List<ContentBlock> joined = new ArrayList<>(messages.get(last).content());
+            joined.addAll(content);
+            messages.set(last, Message.user(joined));
+        } else {
+            messages.add(Message.user(List.copyOf(content)));
+        }
+    }
+
     /** Starts a fresh conversation, for example when the user switches mode. Decide when to call it. */
     public void clearMessages() {
         messages.clear();

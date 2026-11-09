@@ -1,5 +1,7 @@
 package ca.yorku.accessfix.agent;
 
+import ca.yorku.accessfix.common.NotFoundException;
+import ca.yorku.accessfix.domain.Audit;
 import ca.yorku.accessfix.domain.Decision;
 import ca.yorku.accessfix.persistence.AuditRepository;
 import java.util.List;
@@ -25,23 +27,48 @@ public class MemoryManager {
         return sessions.computeIfAbsent(auditId, AgentSession::new);
     }
 
-    /** TODO(F11): load the audit and return its stored (rejected) decisions. */
+    /**
+     * The audit's rejected decisions, oldest first, read from storage so they survive restarts (F11).
+     * Only rejections are stored, but approvals are filtered out here too, so the agent is only ever
+     * told what the user refused.
+     */
     public List<Decision> loadDecisions(String auditId) {
-        throw new UnsupportedOperationException("TODO: MemoryManager.loadDecisions");
+        return findAudit(auditId).getDecisions().stream().filter(decision -> !decision.approved()).toList();
     }
 
-    /** TODO(F11): add the decision to the audit and save it. Only rejections are stored. */
+    /**
+     * Saves a rejection with the audit, so every later run is told about it (F11, SD06). Approvals
+     * aren't stored: an approved fix is already recorded as an applied fix.
+     */
     public void recordDecision(String auditId, Decision decision) {
-        throw new UnsupportedOperationException("TODO: MemoryManager.recordDecision");
+        if (decision.approved()) {
+            return;
+        }
+        Audit audit = findAudit(auditId);
+        audit.addDecision(decision);
+        repository.save(audit);
     }
 
-    /** TODO(F08): add one failure for the issue, save, and return the new count. */
+    /** Adds one failed fix for the issue, saves, and returns the new count (F08, SD06). */
     public int recordFailure(String auditId, String issueId) {
-        throw new UnsupportedOperationException("TODO: MemoryManager.recordFailure");
+        Audit audit = findAudit(auditId);
+        int failures = audit.incrementFailures(issueId);
+        repository.save(audit);
+        return failures;
     }
 
-    /** TODO(F08): mark the issue escalated on the audit and save. */
-    public void recordEscalation(String auditId, String issueId) {
-        throw new UnsupportedOperationException("TODO: MemoryManager.recordEscalation");
+    /**
+     * Records the issue as escalated, with why, and saves (F08, UC08 2b and 4a). The reason is shown
+     * in the report. Escalating an issue again keeps the first reason.
+     */
+    public void recordEscalation(String auditId, String issueId, String reason) {
+        Audit audit = findAudit(auditId);
+        audit.markEscalated(issueId, reason);
+        repository.save(audit);
+    }
+
+    private Audit findAudit(String auditId) {
+        return repository.findById(auditId)
+                .orElseThrow(() -> new NotFoundException("No audit with ID " + auditId));
     }
 }
