@@ -1,8 +1,13 @@
 package ca.yorku.accessfix.scan;
 
+import ca.yorku.accessfix.domain.Issue;
 import ca.yorku.accessfix.domain.PageSnapshot;
 import ca.yorku.accessfix.domain.ScanResult;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,6 +16,12 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class RuleEngine {
+
+    private static final Logger LOG = LoggerFactory.getLogger(RuleEngine.class);
+
+    /** Sorts by rule, then element, so the order doesn't depend on the order Spring gives the rules. */
+    private static final Comparator<Issue> ISSUE_ORDER =
+            Comparator.comparing(Issue::ruleId).thenComparing(Issue::elementId);
 
     private final List<Rule> rules;
 
@@ -23,18 +34,23 @@ public class RuleEngine {
     }
 
     /**
-     * TODO(F02, SD01): implement.
-     * <ol>
-     *   <li>Call check() on each rule.</li>
-     *   <li>If a rule throws, record its id() in rulesNotRun and continue with the others.</li>
-     *   <li>Sort the issues so the result doesn't depend on the order Spring gives you the rules
-     *       (for example by ruleId, then elementId).</li>
-     *   <li>Return a new ScanResult.</li>
-     * </ol>
-     * Test idea: a fake Rule that always throws, plus ImageAltRule. Expect ImageAltRule's issues
-     * and the fake rule's ID in rulesNotRun.
+     * Calls check() on each rule and collects the issues (F02, SD01). A rule that throws is
+     * recorded in rulesNotRun, none of its issues are kept, and the other rules carry on.
      */
     public ScanResult scan(PageSnapshot snapshot) {
-        throw new UnsupportedOperationException("TODO: RuleEngine.scan");
+        List<Issue> issues = new ArrayList<>();
+        List<String> rulesNotRun = new ArrayList<>();
+
+        for (Rule rule : rules) {
+            try {
+                issues.addAll(rule.check(snapshot));
+            } catch (RuntimeException e) {
+                LOG.warn("Rule {} failed; marking it not run", rule.id(), e);
+                rulesNotRun.add(rule.id());
+            }
+        }
+        issues.sort(ISSUE_ORDER);
+        rulesNotRun.sort(Comparator.naturalOrder());
+        return new ScanResult(issues, rulesNotRun);
     }
 }
