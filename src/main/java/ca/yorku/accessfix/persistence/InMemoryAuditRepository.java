@@ -8,9 +8,9 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Repository;
 
 /**
- * Keeps audits in memory. Active when {@code accessfix.storage=memory} (the starter default) and
- * used directly in unit tests. Audits are lost when the process ends, so CLI commands can't share
- * them: switch to {@code accessfix.storage=h2} once JdbcAuditRepository works.
+ * Keeps audits in memory. Active when {@code accessfix.storage=memory}, and used directly in unit
+ * tests. Audits are lost when the process ends, so CLI commands can't share them: the application
+ * uses JdbcAuditRepository ({@code accessfix.storage=h2}) by default.
  */
 @Repository
 @ConditionalOnProperty(name = "accessfix.storage", havingValue = "memory", matchIfMissing = true)
