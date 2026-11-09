@@ -3,7 +3,6 @@ package ca.yorku.accessfix.ui.rest;
 import ca.yorku.accessfix.agent.AgentResult;
 import ca.yorku.accessfix.agent.events.AgentEventPublisher;
 import ca.yorku.accessfix.common.InvalidInputException;
-import ca.yorku.accessfix.domain.Audit;
 import ca.yorku.accessfix.domain.Explanation;
 import ca.yorku.accessfix.domain.FixProposal;
 import ca.yorku.accessfix.domain.RemediationPlan;
@@ -42,18 +41,14 @@ public class RestApiController {
         this.publisher = publisher;
     }
 
-    /**
-     * Returning the Audit itself is fine to get started, but it sends the whole snapshot (HTML and
-     * screenshots) to the browser, and Jackson can't serialise FixCommand objects once fixes exist.
-     * TODO: return a small record (for example AuditSummary: id, source, latest scan) instead.
-     */
+    /** Returns a summary, not the Audit: see AuditSummary for why. */
     @PostMapping("/audits")
-    public Audit loadPage(@RequestBody ApiRequests.LoadPage body) {
+    public AuditSummary loadPage(@RequestBody ApiRequests.LoadPage body) {
         if (body.url() != null && !body.url().isBlank()) {
-            return facade.loadPage(PageInput.ofUrl(body.url().trim()));
+            return AuditSummary.of(facade.loadPage(PageInput.ofUrl(body.url().trim())));
         }
         if (body.html() != null && !body.html().isBlank()) {
-            return facade.loadPage(PageInput.ofHtml(body.html(), body.fileName()));
+            return AuditSummary.of(facade.loadPage(PageInput.ofHtml(body.html(), body.fileName())));
         }
         throw new InvalidInputException("Enter a URL or choose an HTML file.");
     }

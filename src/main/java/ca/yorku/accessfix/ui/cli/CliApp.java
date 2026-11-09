@@ -1,6 +1,7 @@
 package ca.yorku.accessfix.ui.cli;
 
 import ca.yorku.accessfix.agent.events.AgentEventPublisher;
+import ca.yorku.accessfix.common.AccessFixException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.ExitCodeGenerator;
@@ -29,7 +30,25 @@ public class CliApp implements CommandLineRunner, ExitCodeGenerator {
     @Override
     public void run(String... args) {
         publisher.subscribe(new ConsoleEventPrinter());
-        exitCode = new CommandLine(RootCommand.class, springFactory()).execute(args);
+        exitCode = commandLine(springFactory()).execute(args);
+    }
+
+    /** The accessfix command, set up to print user errors as a message (package-private for tests). */
+    static CommandLine commandLine(CommandLine.IFactory factory) {
+        return new CommandLine(RootCommand.class, factory).setExecutionExceptionHandler(CliApp::printMessage);
+    }
+
+    /**
+     * Prints an AccessFixException's message, such as an invalid URL or an unknown audit ID, without a
+     * stack trace, and exits with picocli's error code. Any other exception is a bug, so it is
+     * rethrown and picocli prints the stack trace as before.
+     */
+    static int printMessage(Exception e, CommandLine commandLine, CommandLine.ParseResult parseResult) throws Exception {
+        if (!(e instanceof AccessFixException)) {
+            throw e;
+        }
+        commandLine.getErr().println(e.getMessage());
+        return commandLine.getCommandSpec().exitCodeOnExecutionException();
     }
 
     @Override
