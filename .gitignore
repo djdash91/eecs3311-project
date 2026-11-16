@@ -18,3 +18,10 @@ kuma/artifacts/
 .DS_Store
 Thumbs.db
 .idea/
+# macOS system and archive metadata
+__MACOSX/
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+

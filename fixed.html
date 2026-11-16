@@ -1,0 +1,44 @@
+<!doctype html><html lang="en"><head>
+  <meta charset="utf-8">
+  <style>
+    .icon { display: inline-block; width: 1rem; height: 1rem; background: #444; }
+    .help-icon { font-weight: bold; }
+  </style>
+<title>Bike Share Sign-up</title></head>
+<body>
+  <h1>Bike Share sign-up</h1>
+
+  <!-- image-alt: no alt attribute; renders, so a screenshot exists -->
+  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='80'%3E%3Crect width='120' height='80' fill='%23d5d5f5'/%3E%3Cg fill='none' stroke='%23333' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='28' cy='56' r='16'/%3E%3Ccircle cx='92' cy='56' r='16'/%3E%3Cpath d='M28 56 L52 56 L44 32 Z M52 56 L80 32 L44 32 M80 32 L92 56'/%3E%3Cpath d='M38 28 L50 28 M44 32 L44 28 M80 32 L77 22 M71 22 L84 22'/%3E%3C/g%3E%3C/svg%3E" alt="A simple black outline icon of a bicycle on a light purple background.">
+
+  <!-- image-alt: broken image, so there is no screenshot (F07 alternative flow) -->
+  <img src="missing-photo.jpg" alt="">
+
+  <!-- Not an issue: decorative image with empty alt -->
+  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='4'/%3E" alt="">
+
+  <!-- Not an issue: hidden image -->
+  <img src="hidden.png" style="display:none">
+
+  <form>
+    <div>
+      <!-- form-label: no label -->
+      <input type="email" placeholder="Email" style="" aria-label="Email">
+      <!-- button-name: "?" help button whose icon is hidden from assistive technology, so it has no name -->
+      <button type="button" aria-controls="email-help" aria-expanded="false" onclick="const help = document.getElementById('email-help'); help.hidden = !help.hidden; this.setAttribute('aria-expanded', String(!help.hidden));" aria-label="Help about email"><span class="help-icon" aria-hidden="true">?</span></button>
+      <p id="email-help" hidden>We only use your email to send your bike-share receipts.</p>
+    </div>
+    <!-- Not an issue: labelled field -->
+    <label for="name">Name</label>
+    <input id="name" type="text" style="">
+    <!-- Not an issue: submit input has a default name -->
+    <input type="submit" style="">
+  </form>
+
+  <!-- link-name: link with no text -->
+  <a href="/cart" aria-label="Cart"><span class="icon"></span></a>
+  <!-- Not an issue -->
+  <a href="/help">Help</a>
+
+
+</body></html>
